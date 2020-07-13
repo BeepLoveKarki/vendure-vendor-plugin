@@ -7,21 +7,49 @@ import { VendureEntity, DeepPartial } from '@vendure/core';
  * to query in your plugin code.
  */
 @Entity()
-export class FeedbackEntity extends VendureEntity {
+export class VendorEntity extends VendureEntity {
 
-    constructor(input?: DeepPartial<FeedbackEntity>) {
+    constructor(input?: DeepPartial<VendorEntity>) {
         super(input);
     }
 
-    @Column({default:"Anonymous"})
-    name: string;
+    @Column()
+    firstname: string;
 	
-	@Column({default:"Anonymous"})
+	@Column()
+    lastname: string;
+	
+	@Column()
     email: string;
 	
-	@Column({default:"Anonymous"})
+	@Column()
     phone: string;
 	
 	@Column()
-    feedback: string;
+    companyphone: string;
+	
+	@Column()
+    company: string; //company name
+	
+	@Column()
+    companyaddr: string; //company address
+	
+	@Column()
+	panVat: string; //pan or vat
+	
+	@Column()
+    panVatnum: string; //pan or vat number
+	
+	@Column("simple-array")
+    producttype: string[]; //producttheysell
+	
+	
+	//for file, fileToUpload;File
+	
+	@Column("simple-array")
+    selectedItems: string[]; //type of company
+	
+	@Colum()
+	@Generated("uuid")
+	uuid: string;
 }
