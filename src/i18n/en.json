@@ -1,0 +1,19 @@
+{
+ "vdr-feedback-plugin":{
+    "create-new-feedback": "Create New Feedback",
+	"search-feedback": "Search Feedback",
+	"confirm-delete-feedback": "Delete Feedback?",
+	"download-csv": "Download CSV",
+	"feedback": "Feedback",
+	"created": "Created At",
+	"updated": "Updated At",
+	"name": "Name",
+	"email": "Email Address",
+	"phone": "Phone Number",
+	"feedback": "Feedback",
+	"name-label": "Name",
+	"email-label": "Email Address",
+	"phone-label": "Phone Number",
+	"feedback-label": "Feedback"
+ }
+}
