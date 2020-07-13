@@ -1,21 +1,21 @@
 import gql from 'graphql-tag';
 
-import { FEEDBACK_FRAGMENT } from '../../common/fragments.graphql';
+import { VENDOR_FRAGMENT } from '../../common/fragments.graphql';
 
-export const UPDATE_FEEDBACK = gql`
-    mutation UpdateFeedback($input: FeedbackUpdateInput!) {
-        updateFeedback(input: $input) {
-            ...Feedbacks
+export const UPDATE_VENDOR = gql`
+    mutation UpdateVendor($input: VendorUpdateInput!) {
+        updateVendor(input: $input) {
+            ...Vendors
         }
     }
-    ${FEEDBACK_FRAGMENT}
+    ${VENDOR_FRAGMENT}
 `;
 
-export const CREATE_FEEDBACK = gql`
-    mutation CreateFeedback($input: FeedbackAddInput!) {
-        addFeedback(input: $input) {
-            ...Feedbacks
+export const CREATE_VENDOR = gql`
+    mutation CreateVendor($input: VendorAddInput!) {
+        addVendor(input: $input) {
+            ...Vendors
         }
     }
-    ${FEEDBACK_FRAGMENT}
+    ${VENDOR_FRAGMENT}
 `;

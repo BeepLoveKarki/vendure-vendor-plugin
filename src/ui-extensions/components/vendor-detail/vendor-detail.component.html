@@ -23,18 +23,49 @@
 </vdr-action-bar>
 
 <form class="form" [formGroup]="detailForm">
-    <vdr-form-field [label]="'vdr-feedback-plugin.name-label' | translate" for="email">
-        <input id="name" type="text" formControlName="name" [readonly]="!'UpdateSettings'" />
+    <vdr-form-field [label]="'vdr-vendor-plugin.firstname-label' | translate" for="firstname">
+        <input id="firstname" type="text" formControlName="firstname" [readonly]="!'UpdateSettings'" />
     </vdr-form-field>
-	<vdr-form-field [label]="'vdr-feedback-plugin.email-label' | translate" for="email">
+	<vdr-form-field [label]="'vdr-vendor-plugin.lastname-label' | translate" for="lastname">
+        <input id="lastname" type="text" formControlName="lastname" [readonly]="!'UpdateSettings'" />
+    </vdr-form-field>
+	<vdr-form-field [label]="'vdr-vendor-plugin.email-label' | translate" for="email">
         <input id="email" type="email" formControlName="email" [readonly]="!'UpdateSettings'" />
     </vdr-form-field>
-	    <vdr-form-field [label]="'vdr-feedback-plugin.phone-label' | translate" for="email">
+	<vdr-form-field [label]="'vdr-vendor-plugin.phone-label' | translate" for="phone">
         <input id="phone" type="number" formControlName="phone" [readonly]="!'UpdateSettings'" />
     </vdr-form-field>
-	    <vdr-form-field [label]="'vdr-feedback-plugin.feedback-label' | translate" for="email">
-        <!--input id="feedback" type="text" formControlName="feedback" [readonly]="!'UpdateSettings'" /-->
-		<textarea id="feedback" formControlName="feedback" [readonly]="!'UpdateSettings'">
-		</textarea>
+	<vdr-form-field [label]="'vdr-vendor-plugin.phone-label' | translate" for="companyname">
+        <input id="companyname" type="text" formControlName="companyname" [readonly]="!'UpdateSettings'" />
     </vdr-form-field>
+	<vdr-form-field [label]="'vdr-vendor-plugin.companyaddr-label' | translate" for="companyaddr">
+        <input id="companyaddr" type="text" formControlName="companyaddr" [readonly]="!'UpdateSettings'" />
+    </vdr-form-field>
+	<vdr-form-field [label]="'vdr-vendor-plugin.companydesc-label' | translate" for="companydesc">
+        <input id="companydesc" type="text" formControlName="companydesc" [readonly]="!'UpdateSettings'" />
+    </vdr-form-field>
+	<vdr-form-field [label]="'vdr-vendor-plugin.companyphone-label' | translate" for="companyphone">
+        <input id="companyphone" type="number" formControlName="companyphone" [readonly]="!'UpdateSettings'" />
+    </vdr-form-field>
+	<vdr-form-field [label]="'vdr-vendor-plugin.companycategory-label' | translate" for="companycategory">
+        <input id="companycategory" type="text" formControlName="companycategory" [readonly]="!'UpdateSettings'" />
+    </vdr-form-field>
+	<!--vdr-form-field [label]="'vdr-vendor-plugin.companydoc-label' | translate" for="companydoc">
+        <input id="companydoc" type="text" formControlName="uuid" [readonly]="!'UpdateSettings'" />
+    </vdr-form-field-->
+	<vdr-form-field [label]="'vdr-vendor-plugin.panvat-label' | translate" for="panvat">
+        <input id="panvat" type="text" formControlName="panvat" [readonly]="!'UpdateSettings'" />
+    </vdr-form-field>
+	<vdr-form-field [label]="'vdr-vendor-plugin.patvannum-label' | translate" for="panvatnum">
+        <input id="panvatnum" type="text" formControlName="panvatnum" [readonly]="!'UpdateSettings'" />
+    </vdr-form-field>
+	<vdr-form-field [label]="'vdr-vendor-plugin.producttype-label' | translate" for="producttype">
+        <input id="producttype" type="text" formControlName="producttype" [readonly]="!'UpdateSettings'" />
+    </vdr-form-field>
+	
+	<!--vdr-form-field [label]="'vdr-vendor-plugin.vendor-label' | translate" for="email"-->
+        <!--input id="vendor" type="text" formControlName="vendor" [readonly]="!'UpdateSettings'" /-->
+		<!--textarea id="vendor" formControlName="vendor" [readonly]="!'UpdateSettings'">
+		</textarea-->
+    <!--/vdr-form-field-->
 </form>

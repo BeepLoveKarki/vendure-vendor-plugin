@@ -1,12 +1,12 @@
 import gql from 'graphql-tag';
 
-import { FEEDBACK_FRAGMENT } from '../../../common/fragments.graphql';
+import { VENDOR_FRAGMENT } from '../../../common/fragments.graphql';
 
-export const GET_FEEDBACK = gql`
-  query GetFeedback($id: ID!) {
-    Feedback(id: $id) {
-      ...Feedbacks
+export const GET_VENDOR = gql`
+  query GetVendor($id: ID!) {
+    Vendor(id: $id) {
+      ...Vendors
     }
   }
-  ${FEEDBACK_FRAGMENT}
+  ${VENDOR_FRAGMENT}
 `;

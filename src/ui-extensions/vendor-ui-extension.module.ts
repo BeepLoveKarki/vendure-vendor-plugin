@@ -5,18 +5,18 @@ import { SharedModule, addNavMenuSection } from '@vendure/admin-ui/core';
   imports: [SharedModule],
   providers: [
     addNavMenuSection({
-      id: 'feedbacks',
-      label: 'Feedbacks',
+      id: 'vendors',
+      label: 'Vendors',
       items: [{
-        id: 'feedbacks',
-        label: 'Feedbacks',
-        routerLink: ['/extensions/feedbacks'],
+        id: 'vendors-list',
+        label: 'Vendors',
+        routerLink: ['/extensions/vendors'],
         // Icon can be any of https://clarity.design/icons
-        icon: 'folder-open',
+        icon: 'id-badge',
       }],
     },
     // Add this section before the "settings" section
     'settings'),
   ]
 })
-export class FeedbackExtensionModule {}
+export class VendorExtensionModule {}

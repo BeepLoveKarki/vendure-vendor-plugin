@@ -12,28 +12,28 @@ import { debounceTime, takeUntil, switchMap } from 'rxjs/operators';
 import { CsvDataService } from '../../common/export-as-csv';
 
 import { 
-  GetAllFeedbacksQuery,
-  Feedbacks,
-  GetAllFeedbacksQueryVariables,
-  DeleteFeedback
+  GetAllVendorsQuery,
+  Vendors,
+  GetAllVendorsQueryVariables,
+  DeleteVendor
 } from '../../generated-types';
-
-import { GET_ALL_FEEDBACKS, DELETE_FEEDBACK } from './all-feedbacks-list.graphql';
+	
+import { GET_ALL_VENDORS, DELETE_VENDOR } from './all-vendors-list.graphql';
 
 @Component({
-    selector: 'vdr-all-feedbacks-list',
-    templateUrl: './all-feedbacks-list.component.html',
-    styleUrls: ['./all-feedbacks-list.component.scss'],
+    selector: 'vdr-all-vendors-list',
+    templateUrl: './all-vendors-list.component.html',
+    styleUrls: ['./all-vendors-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class AllFeedbacksListComponent extends BaseListComponent<
-    GetAllFeedbacksQuery,
-	Feedbacks.Fragment,
-    GetAllFeedbacksQueryVariables
+export class AllVendorsListComponent extends BaseListComponent<
+    GetAllVendorsQuery,
+	Vendors.Fragment,
+    GetAllVendorsQueryVariables
 > implements OnInit {
     searchTerm = new FormControl('');
-	Feedbacks: any;
+	Vendors: any;
 	private querySubscription: Subscription;
 
     constructor(
@@ -46,8 +46,8 @@ export class AllFeedbacksListComponent extends BaseListComponent<
 	) {
         super(router, route);
         super.setQueryFn(
-            (...args: any[]) => this.dataService.query(GET_ALL_FEEDBACKS,args),
-            (data) => data.Feedbacks,
+            (...args: any[]) => this.dataService.query(GET_ALL_VENDORS,args),
+            (data) => data.Vendors,
 			(skip, take) => ({
                 options: {
                     skip,
@@ -78,7 +78,6 @@ export class AllFeedbacksListComponent extends BaseListComponent<
 	  let input = this.searchTerm.value;
 	  let filter = input.toUpperCase();
 	  let table = <HTMLElement> document.querySelector("#datatable >.table > tbody");
-	  console.log(table);
 	  let tr = table.getElementsByTagName("tr");
 	  console.log(tr);
 	  for (let i = 0; i < tr.length; i++) {
@@ -107,37 +106,37 @@ export class AllFeedbacksListComponent extends BaseListComponent<
 	downloadcsv(){
 	  let args: any[] = [];
 	  this.apollo.watchQuery<any>({
-         query: GET_ALL_FEEDBACKS,
+         query: GET_ALL_VENDORS,
 		 variables: args
       }).valueChanges.subscribe((data) => {
-		  CsvDataService.exportToCsv('danfe-feedbacks.csv', data.data.Feedbacks.items);
+		  CsvDataService.exportToCsv('danfe-vendors.csv', data.data.Vendors.items);
       });
 	  
 	   
 	}
 	
-	deleteFeedback(id: string) {
+	deleteVendor(id: string) {
         this.modalService
             .dialog({
-                title: _('vdr-feedback-plugin.confirm-delete-feedback'),
+                title: _('vdr-vendor-plugin.confirm-delete-vendor'),
                 buttons: [
                     { type: 'secondary', label: _('common.cancel') },
                     { type: 'danger', label: _('common.delete'), returnValue: true },
                 ],
             })
             .pipe(
-                switchMap(response => (response ? this.dataService.mutate<DeleteFeedback.Mutation,DeleteFeedback.Variables>(DELETE_FEEDBACK,{"input":id}) : EMPTY)),
+                switchMap(response => (response ? this.dataService.mutate<DeleteVendor.Mutation,DeleteVendor.Variables>(DELETE_VENDOR,{"input":id}) : EMPTY)),
             )
             .subscribe(
                 () => {
                     this.notificationService.success(_('common.notify-delete-success'), {
-                        entity: 'Feedback',
+                        entity: 'Vendor',
                     });
                     this.refresh();
                 },
                 err => {
                     this.notificationService.error(_('common.notify-delete-error'), {
-                        entity: 'Feedback',
+                        entity: 'Vendor',
                     });
                 },
             );

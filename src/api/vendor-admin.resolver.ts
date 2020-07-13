@@ -1,51 +1,62 @@
 import { Args, Parent, Query, Resolver, Mutation } from '@nestjs/graphql';
-import { FeedbackService } from '../service/feedback.service';
+import { VendorService } from '../service/vendor.service';
 import { RequestContext, Ctx, Allow, Permission } from '@vendure/core';
 
 @Resolver()
-export class FeedbackAdminResolver {
-    constructor(private feedbackService: FeedbackService) {
+export class VendorAdminResolver {
+    constructor(private vendorService: VendorService) {
+    }
+	
+	create_UUID(){
+		let dt = new Date().getTime();
+		let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			let r = (dt + Math.random()*16)%16 | 0;
+			dt = Math.floor(dt/16);
+			return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+         });
+        return uuid;
     }
 
     @Query()
 	@Allow(Permission.ReadSettings)
-    Feedbacks(@Ctx() ctx: RequestContext, @Args() args: any) {
+    Vendors(@Ctx() ctx: RequestContext, @Args() args: any) {
 		const {options} = args;
-        return this.feedbackService.getAllFeedbacks(ctx,options || undefined);
+        return this.vendorService.getAllVendors(ctx,options || undefined);
     }
 	
 	@Query()
 	@Allow(Permission.ReadSettings)
-    Feedback(@Ctx() ctx: RequestContext, @Args() args: any) {
+    Vendor(@Ctx() ctx: RequestContext, @Args() args: any) {
 		const {id} = args;
-        return this.feedbackService.getFeedbackById(ctx,id);
+        return this.vendorService.getVendorById(ctx,id);
     }
 	
 	@Mutation()
 	@Allow(Permission.CreateSettings)
-	addFeedback(@Ctx() ctx: RequestContext, @Args() args: any){
+	addVendor(@Ctx() ctx: RequestContext, @Args() args: any){
 	   const {input} = args;
-	   return this.feedbackService.addSingleFeedback(ctx,input);
+	   input.uuid=this.create_UUID();
+	   return this.vendorService.addSingleVendor(ctx,input);
 	}
 	
 	
 	@Mutation()
 	@Allow(Permission.UpdateSettings)
-	updateFeedback(@Ctx() ctx: RequestContext, @Args() args: any){
+	updateVendor(@Ctx() ctx: RequestContext, @Args() args: any){
 	   const {input} = args;
-	   return this.feedbackService.updateSingleFeedback(ctx,input);
+	   return this.vendorService.updateSingleVendor(ctx,input);
 	}
 	
 	@Mutation()
 	@Allow(Permission.DeleteSettings)
-	deleteFeedback(@Ctx() ctx: RequestContext, @Args() args: any){
-	   return this.feedbackService.deleteSingleFeedback(ctx,args.id);
+	deleteVendor(@Ctx() ctx: RequestContext, @Args() args: any){
+	   return this.vendorService.deleteSingleVendor(ctx,args.id);
 	}
 	
 	@Mutation()
 	@Allow(Permission.DeleteSettings)
-	deleteAllFeedbacks(@Ctx() ctx: RequestContext){
-	   return this.feedbackService.deleteAllFeedbacks(ctx);
+	deleteAllVendors(@Ctx() ctx: RequestContext){
+	   return this.vendorService.deleteAllVendors(ctx);
 	}
 	
 }

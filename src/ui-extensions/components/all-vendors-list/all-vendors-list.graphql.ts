@@ -1,25 +1,25 @@
 import gql from 'graphql-tag';
 
-import { FEEDBACK_FRAGMENT } from '../../common/fragments.graphql';
+import { VENDOR_FRAGMENT } from '../../common/fragments.graphql';
 
-export const GET_ALL_FEEDBACKS = gql`
-    query GetAllFeedbacks($options: FeedbackListOptions){
-		Feedbacks(options: $options){
+export const GET_ALL_VENDORS = gql`
+    query GetAllVendors($options: VendorListOptions){
+		Vendors(options: $options){
 			items{
-			...Feedbacks
+			...Vendors
 			}
 			totalItems
        }
     }
-	${FEEDBACK_FRAGMENT}
+	${VENDOR_FRAGMENT}
 `;
 
 
-export const DELETE_FEEDBACK = gql`
-   mutation DeleteFeedback($input:ID!){
-      deleteFeedback(id:$input){
-	     ...Feedbacks 
+export const DELETE_VENDOR = gql`
+   mutation DeleteVendor($input:ID!){
+      deleteVendor(id:$input){
+	     ...Vendors 
 	  }
    }
-   ${FEEDBACK_FRAGMENT}
+   ${VENDOR_FRAGMENT}
 `;

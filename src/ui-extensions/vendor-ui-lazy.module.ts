@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule, createResolveData } from '@vendure/admin-ui/core';
-import { AllFeedbacksListComponent } from './components/all-feedbacks-list/all-feedbacks-list.component';
-import { FeedbackDetailComponent } from './components/feedback-detail/feedback-detail.component';
+import { AllVendorsListComponent } from './components/all-vendors-list/all-vendors-list.component';
+import { VendorDetailComponent } from './components/vendor-detail/vendor-detail.component';
 
-import FeedbackDetailResolver from './providers/routing/feedback-detail/feedback-detail-resolver';
-import { FeedbacksFragment } from './generated-types';
+import VendorDetailResolver from './providers/routing/vendor-detail/vendor-detail-resolver';
+import { VendorsFragment } from './generated-types';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -16,19 +16,19 @@ import { map } from 'rxjs/operators';
 	{
       path: '',
       pathMatch: 'full',
-      component: AllFeedbacksListComponent ,
-      data: { breadcrumb: 'Feedbacks' },
+      component: AllVendorsListComponent ,
+      data: { breadcrumb: 'Vendors' },
     },
 	{
 	  path: 'create',
-      component: FeedbackDetailComponent,
+      component: VendorDetailComponent,
       data: {breadcrumb: [
              {
-                label: 'Feedbacks',
-                link: ['/extensions', 'feedbacks'],
+                label: 'Vendors',
+                link: ['/extensions', 'vendors'],
              },
              {
-                label: 'Create Feedback',
+                label: 'Create Vendor',
                 link: [],
              }
 	       ]
@@ -36,29 +36,29 @@ import { map } from 'rxjs/operators';
 	},
     {
        path: ':id',
-       component: FeedbackDetailComponent,
-       resolve: createResolveData(FeedbackDetailResolver),
-       data: { breadcrumb: feedbackDetailBreadcrumb },
+       component: VendorDetailComponent,
+       resolve: createResolveData(VendorDetailResolver),
+       data: { breadcrumb: vendorDetailBreadcrumb },
     }
 	]),
   ],
   declarations: [
-    AllFeedbacksListComponent,
-	FeedbackDetailComponent
+    AllVendorsListComponent,
+	VendorDetailComponent
   ],
-  providers:[FeedbackDetailResolver],
+  providers:[VendorDetailResolver],
 })
-export class FeedbackUIModule {}
+export class VendorUIModule {}
 
-export function feedbackDetailBreadcrumb(resolved: { entity: Observable<FeedbacksFragment> }) {
+export function vendorDetailBreadcrumb(resolved: { entity: Observable<VendorsFragment> }) {
 	return resolved.entity.pipe(
         map(entity => [
             {
-                label: 'Feedbacks',
-                link: ['/extensions', 'feedbacks'],
+                label: 'Vendors',
+                link: ['/extensions', 'vendors'],
             },
             {
-                label: 'Update Feedback',
+                label: 'Update Vendor',
                 link: [],
             },
         ]),

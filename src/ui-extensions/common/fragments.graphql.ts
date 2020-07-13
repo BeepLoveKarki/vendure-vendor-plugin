@@ -1,12 +1,21 @@
 import gql from 'graphql-tag';
 
-export const FEEDBACK_FRAGMENT = gql`
-    fragment Feedbacks on Feedback {
+export const VENDOR_FRAGMENT = gql`
+    fragment Vendors on Vendor {
         id
-		name
-	    email
-        phone
-	    feedback
+		firstname
+		lastname
+		email
+		phone
+		companyname
+		companyaddr
+		companydesc
+		companyphone
+		companycategory
+		panvat
+		panvatnum
+		producttype
+        uuid		
         createdAt
         updatedAt
     }

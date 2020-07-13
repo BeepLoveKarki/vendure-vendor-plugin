@@ -4,7 +4,7 @@
             type="text"
             name="searchTerm"
 			[formControl]="searchTerm"
-            [placeholder]="'vdr-feedback-plugin.search-feedback' | translate"
+            [placeholder]="'vdr-vendor-plugin.search-vendor' | translate"
             class="clr-input search-input"
         />
     </vdr-ab-left>
@@ -12,11 +12,11 @@
         <vdr-action-bar-items locationId="email-list"></vdr-action-bar-items>
         <a href="javascript:void(0)" class="btn btn-primary" id="downloadbtn" (click)="downloadcsv()" *vdrIfPermissions="'CreateSettings'">
             <clr-icon shape="download-cloud"></clr-icon>
-			{{ 'vdr-feedback-plugin.download-csv' | translate }}
+			{{ 'vdr-vendor-plugin.download-csv' | translate }}
         </a>
 		<a class="btn btn-primary" id="createbtn" [routerLink]="['./create']" *vdrIfPermissions="'CreateSettings'">
             <clr-icon shape="plus"></clr-icon>
-			{{ 'vdr-feedback-plugin.create-new-feedback' | translate }}
+			{{ 'vdr-vendor-plugin.create-new-vendor' | translate }}
         </a>
     </vdr-ab-right>
 </vdr-action-bar>
@@ -30,22 +30,36 @@
     (pageChange)="setPageNumber($event)"
     (itemsPerPageChange)="setItemsPerPage($event)"
 >
-	<vdr-dt-column>{{ 'vdr-feedback-plugin.name' | translate }}</vdr-dt-column>
-	<vdr-dt-column>{{ 'vdr-feedback-plugin.email' | translate }}</vdr-dt-column>
-	<vdr-dt-column>{{ 'vdr-feedback-plugin.phone' | translate }}</vdr-dt-column>
-	<vdr-dt-column>{{ 'vdr-feedback-plugin.feedback' | translate }}</vdr-dt-column>
+	<vdr-dt-column>{{ 'vdr-vendor-plugin.name' | translate }}</vdr-dt-column>
+	<vdr-dt-column>{{ 'vdr-vendor-plugin.email' | translate }}</vdr-dt-column>
+	<vdr-dt-column>{{ 'vdr-vendor-plugin.phone' | translate }}</vdr-dt-column>
+	<vdr-dt-column>{{ 'vdr-vendor-plugin.companyname' | translate }}</vdr-dt-column>
+	<vdr-dt-column>{{ 'vdr-vendor-plugin.companydesc' | translate }}</vdr-dt-column>
+    <vdr-dt-column>{{ 'vdr-vendor-plugin.companyphone' | translate }}</vdr-dt-column>
+	<vdr-dt-column>{{ 'vdr-vendor-plugin.companycategory' | translate }}</vdr-dt-column>
+	<vdr-dt-column>{{ 'vdr-vendor-plugin.companydoc' | translate }}</vdr-dt-column>
+	<vdr-dt-column>{{ 'vdr-vendor-plugin.panvat' | translate }}</vdr-dt-column>
+	<vdr-dt-column>{{ 'vdr-vendor-plugin.panvatnum' | translate }}</vdr-dt-column>
+	<vdr-dt-column>{{ 'vdr-vendor-plugin.producttype' | translate }}</vdr-dt-column>
     <vdr-dt-column></vdr-dt-column>
 	<vdr-dt-column></vdr-dt-column>
-    <ng-template let-feedback="item">
-		<td class="left align-middle">{{ feedback.name }}</td>
-		<td class="left align-middle">{{ feedback.email }}</td>
-		<td class="left align-middle">{{ feedback.phone }}</td>
-		<td class="left align-middle">{{ feedback.feedback }}</td>
+    <ng-template let-vendor="item">
+		<td class="left align-middle">{{ vendor.firstname }} {{ vendor.lastname }}</td>
+		<td class="left align-middle">{{ vendor.email }}</td>
+		<td class="left align-middle">{{ vendor.phone }}</td>
+		<td class="left align-middle">{{ vendor.companyname }}</td>
+		<td class="left align-middle">{{ vendor.companydesc }}</td>
+		<td class="left align-middle">{{ vendor.companyphone }}</td>
+		<td class="left align-middle">{{ vendor.companycategory }}</td>
+		<td class="left align-middle">{{ vendor.uuid }}</td> <!--doclink-->
+		<td class="left align-middle">{{ vendor.panvat }}</td>
+		<td class="left align-middle">{{ vendor.panvatnum }}</td>
+		<td class="left align-middle">{{ vendor.producttype }}</td>
 		<td class="right align-middle" *vdrIfPermissions="'UpdateSettings'">
             <vdr-table-row-action
                 iconShape="edit"
                 [label]="'common.edit' | translate"
-                [linkTo]="['/extensions', 'feedbacks', feedback.id]"
+                [linkTo]="['/extensions', 'vendors', vendor.id]"
             ></vdr-table-row-action>
         </td>
 		
@@ -59,7 +73,7 @@
                     <button
                         type="button"
                         class="delete-button"
-                        (click)="deleteFeedback(feedback.id)"
+                        (click)="deleteVendor(vendor.id)"
                         vdrDropdownItem
                     >
                         <clr-icon shape="trash" class="is-danger"></clr-icon>

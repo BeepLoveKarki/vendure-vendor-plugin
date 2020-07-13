@@ -11,23 +11,23 @@ import { Observable, of } from 'rxjs';
 import { filter, map, mapTo, switchMap } from 'rxjs/operators';
 
 import { 
-   CreateFeedback,
-   FeedbacksFragment,
-   UpdateFeedback,
-   FeedbackAddInput,
-   FeedbackUpdateInput
+   CreateVendor,
+   VendorsFragment,
+   UpdateVendor,
+   VendorAddInput,
+   VendorUpdateInput
 } from '../../generated-types';
 
-import { CREATE_FEEDBACK,UPDATE_FEEDBACK } from './feedback-detail.graphql';
+import { CREATE_VENDOR,UPDATE_VENDOR } from './vendor-detail.graphql';
 
 @Component({
-    selector: 'vdr-feedback-detail',
-    templateUrl: './feedback-detail.component.html',
-    styleUrls: ['./feedback-detail.component.scss'],
+    selector: 'vdr-vendor-detail',
+    templateUrl: './vendor-detail.component.html',
+    styleUrls: ['./vendor-detail.component.scss'],
     changeDetection: ChangeDetectionStrategy.Default,
 })
 
-export class FeedbackDetailComponent extends BaseDetailComponent<FeedbacksFragment>
+export class VendorDetailComponent extends BaseDetailComponent<VendorsFragment>
     implements OnInit, OnDestroy {
     detailForm: FormGroup;
 	which = false;
@@ -44,16 +44,24 @@ export class FeedbackDetailComponent extends BaseDetailComponent<FeedbacksFragme
         super(route, router, serverConfigService, dataService);
         
 		this.detailForm = this.formBuilder.group({
-            name: '',
-			email: '',
-			phone: '',
-			feedback: ['',Validators.required]
+			firstname:['',Validators.required],
+			lastname:['',Validators.required],
+			email:['',Validators.required],
+			phone:['',Validators.required],
+			companyname:['',Validators.required],
+			companyaddr:['',Validators.required],
+			companydesc:'',
+			companyphone:['',Validators.required],
+			companycategory:['',Validators.required],
+			panvat:['',Validators.required],
+			panvatnum:['',Validators.required],
+			producttype:['',Validators.required]
         });
 		
     }
 	
 	ngOnInit() {
-		if(this.router.url!='/extensions/feedbacks/create'){
+		if(this.router.url!='/extensions/vendors/create'){
 		  this.which=false;
 		  this.init();
 		}else{
@@ -73,12 +81,12 @@ export class FeedbackDetailComponent extends BaseDetailComponent<FeedbacksFragme
                     this.detailForm.markAsPristine();
                     this.changeDetector.markForCheck();
                     this.notificationService.success('common.notify-create-success', {
-                        entity: 'Feedback',
+                        entity: 'Vendor',
                     });
                 },
                 () => {
                     this.notificationService.error('common.notify-create-error', {
-                        entity: 'Feedback',
+                        entity: 'Vendor',
                     });
                 },
             );
@@ -92,12 +100,12 @@ export class FeedbackDetailComponent extends BaseDetailComponent<FeedbacksFragme
                     this.detailForm.markAsPristine();
                     this.changeDetector.markForCheck();
                     this.notificationService.success('common.notify-update-success', {
-                        entity: 'Feedback',
+                        entity: 'Vendor',
                     });
                 },
                 () => {
                     this.notificationService.error('common.notify-update-error', {
-                        entity: 'Feedback',
+                        entity: 'Vendor',
                     });
                 },
             );
@@ -106,14 +114,22 @@ export class FeedbackDetailComponent extends BaseDetailComponent<FeedbacksFragme
 	private addNew(): Observable<boolean>{
 	   if (this.detailForm.dirty) {
             const formValue = this.detailForm.value;
-            const input: FeedbackAddInput = {
-				name: formValue.name || "Anonymous",
-                email: formValue.email || "Anonymous",
-				phone: formValue.phone.toString() || "Anonymous",
-				feedback: formValue.feedback
+            const input: VendorAddInput = {
+				firstname:formValue.firstname,
+				lastname:formValue.lastname,
+				email:formValue.email,
+				phone:formValue.phone.toString(),
+				companyname:formValue.companyname,
+				companyaddr:formValue.companyaddr,
+				companydesc:formValue.companydesc||"",
+				companyphone:formValue.companyphone.toString(),
+				companycategory:formValue.companycategory,
+				panvat:formValue.panvat,
+				panvatnum:formValue.panvatnum,
+				producttype:formValue.producttype
             };
             return this.dataService
-                .mutate<CreateFeedback.Mutation,CreateFeedback.Variables>(CREATE_FEEDBACK, {
+                .mutate<CreateVendor.Mutation,CreateVendor.Variables>(CREATE_VENDOR, {
                     input,
                 })
                 .pipe(mapTo(true));
@@ -125,15 +141,23 @@ export class FeedbackDetailComponent extends BaseDetailComponent<FeedbacksFragme
 	private saveChanges(): Observable<boolean> {
         if (this.detailForm.dirty) {
             const formValue = this.detailForm.value;
-            const input: FeedbackUpdateInput = {
+            const input: VendorUpdateInput = {
                 id: this.id,
-                name: formValue.name || "Anonymous",
-                email: formValue.email || "Anonymous",
-				phone: formValue.phone.toString() || "Anonymous",
-				feedback: formValue.feedback
+				firstname:formValue.firstname,
+				lastname:formValue.lastname,
+				email:formValue.email,
+				phone:formValue.phone.toString(),
+				companyname:formValue.companyname,
+				companyaddr:formValue.companyaddr,
+				companydesc:formValue.companydesc||"",
+				companyphone:formValue.companyphone.toString(),
+				companycategory:formValue.companycategory,
+				panvat:formValue.panvat,
+				panvatnum:formValue.panvatnum,
+				producttype:formValue.producttype
             };
             return this.dataService
-                .mutate<UpdateFeedback.Mutation,UpdateFeedback.Variables>(UPDATE_FEEDBACK, {
+                .mutate<UpdateVendor.Mutation,UpdateVendor.Variables>(UPDATE_VENDOR, {
                     input,
                 })
                 .pipe(mapTo(true));
@@ -142,25 +166,22 @@ export class FeedbackDetailComponent extends BaseDetailComponent<FeedbacksFragme
         }
     }
 	
-	protected setFormValues(entity: FeedbacksFragment) {
-		  let datas = <any>{};
-		  
-		  if(entity.name=="Anonymous"){
-		      datas.name=""
-		  }
-		  
-		  if(entity.email=="Anonymous"){
-		      datas.email=""
-		  }
-		  
-		  if(entity.phone=="Anonymous"){
-		      datas.phone=""
-		  }else{
-		       datas.phone=parseInt(datas.phone)
-		  }
-		  
-		  datas.feedback=entity.feedback;
-		  this.detailForm.patchValue(datas);
+	protected setFormValues(entity: VendorsFragment) {
+		  console.log(entity.uuid);
+		  this.detailForm.patchValue({
+			 firstname:entity.firstname,
+			 lastname:entity.lastname,
+			 email:entity.email,
+			 phone:parseInt(entity.phone),
+			 companyname:entity.companyname,
+			 companyaddr:entity.companyaddr,
+			 companydesc:entity.companydesc||"",
+			 companyphone:parseInt(entity.companyphone),
+			 companycategory:entity.companycategory,
+			 panvat:entity.panvat,
+			 panvatnum:entity.panvatnum,
+			 producttype:entity. producttype,
+		  });
 	}
     
 }

@@ -1,7 +1,7 @@
 {
-  "name": "vendure-feedback-plugin",
+  "name": "vendure-vendor-plugin",
   "version": "0.0.1",
-  "description": "A Vendure plugin for recording feedback from customers",
+  "description": "A Vendure plugin for recording vendors data",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [

@@ -2053,6 +2053,10 @@ export type Mutation = {
   updateSubscriptionPhone: Array<Maybe<Phone>>;
   deleteSubscriptionPhone: Array<Maybe<Phone>>;
   deleteAllSubscriptionPhones: Scalars['Boolean'];
+  addVendor: Vendor;
+  updateVendor: Vendor;
+  deleteVendor: Vendor;
+  deleteAllVendors: Scalars['Boolean'];
 };
 
 
@@ -2567,6 +2571,21 @@ export type MutationUpdateSubscriptionPhoneArgs = {
 
 export type MutationDeleteSubscriptionPhoneArgs = {
   id: Array<Scalars['ID']>;
+};
+
+
+export type MutationAddVendorArgs = {
+  input: VendorAddInput;
+};
+
+
+export type MutationUpdateVendorArgs = {
+  input: VendorUpdateInput;
+};
+
+
+export type MutationDeleteVendorArgs = {
+  id: Scalars['ID'];
 };
 
 export type Node = {
@@ -3316,6 +3335,8 @@ export type Query = {
   SubscriptionEmail?: Maybe<Email>;
   SubscriptionPhones: PhoneList;
   SubscriptionPhone?: Maybe<Phone>;
+  Vendors: VendorList;
+  Vendor?: Maybe<Vendor>;
 };
 
 
@@ -3562,6 +3583,16 @@ export type QuerySubscriptionPhonesArgs = {
 
 
 export type QuerySubscriptionPhoneArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryVendorsArgs = {
+  options?: Maybe<VendorListOptions>;
+};
+
+
+export type QueryVendorArgs = {
   id: Scalars['ID'];
 };
 
@@ -4183,6 +4214,103 @@ export type User = Node & {
   roles: Array<Role>;
   lastLogin?: Maybe<Scalars['String']>;
   customFields?: Maybe<Scalars['JSON']>;
+};
+
+export type Vendor = Node & {
+  __typename?: 'Vendor';
+  id: Scalars['ID'];
+  firstname: Scalars['String'];
+  lastname: Scalars['String'];
+  email: Scalars['String'];
+  phone: Scalars['String'];
+  companyname: Scalars['String'];
+  companyaddr: Scalars['String'];
+  companydesc?: Maybe<Scalars['String']>;
+  companyphone: Scalars['String'];
+  companycategory: Array<Scalars['String']>;
+  panvat: Scalars['String'];
+  panvatnum: Scalars['String'];
+  producttype: Array<Scalars['String']>;
+  uuid: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type VendorAddInput = {
+  firstname: Scalars['String'];
+  lastname: Scalars['String'];
+  email: Scalars['String'];
+  phone: Scalars['String'];
+  companyname: Scalars['String'];
+  companyaddr: Scalars['String'];
+  companydesc?: Maybe<Scalars['String']>;
+  companyphone: Scalars['String'];
+  companycategory: Array<Scalars['String']>;
+  panvat: Scalars['String'];
+  panvatnum: Scalars['String'];
+  producttype: Array<Scalars['String']>;
+};
+
+export type VendorFilterParameter = {
+  firstname?: Maybe<StringOperators>;
+  lastname?: Maybe<StringOperators>;
+  email?: Maybe<StringOperators>;
+  phone?: Maybe<StringOperators>;
+  companyname?: Maybe<StringOperators>;
+  companyaddr?: Maybe<StringOperators>;
+  companydesc?: Maybe<StringOperators>;
+  companyphone?: Maybe<StringOperators>;
+  panvat?: Maybe<StringOperators>;
+  panvatnum?: Maybe<StringOperators>;
+  uuid?: Maybe<StringOperators>;
+  createdAt?: Maybe<DateOperators>;
+  updatedAt?: Maybe<DateOperators>;
+};
+
+export type VendorList = PaginatedList & {
+  __typename?: 'VendorList';
+  items: Array<Vendor>;
+  totalItems: Scalars['Int'];
+};
+
+export type VendorListOptions = {
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  sort?: Maybe<VendorSortParameter>;
+  filter?: Maybe<VendorFilterParameter>;
+};
+
+export type VendorSortParameter = {
+  id?: Maybe<SortOrder>;
+  firstname?: Maybe<SortOrder>;
+  lastname?: Maybe<SortOrder>;
+  email?: Maybe<SortOrder>;
+  phone?: Maybe<SortOrder>;
+  companyname?: Maybe<SortOrder>;
+  companyaddr?: Maybe<SortOrder>;
+  companydesc?: Maybe<SortOrder>;
+  companyphone?: Maybe<SortOrder>;
+  panvat?: Maybe<SortOrder>;
+  panvatnum?: Maybe<SortOrder>;
+  uuid?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type VendorUpdateInput = {
+  id: Scalars['ID'];
+  firstname: Scalars['String'];
+  lastname: Scalars['String'];
+  email: Scalars['String'];
+  phone: Scalars['String'];
+  companyname: Scalars['String'];
+  companyaddr: Scalars['String'];
+  companydesc?: Maybe<Scalars['String']>;
+  companyphone: Scalars['String'];
+  companycategory: Array<Scalars['String']>;
+  panvat: Scalars['String'];
+  panvatnum: Scalars['String'];
+  producttype: Array<Scalars['String']>;
 };
 
 export type Zone = Node & {

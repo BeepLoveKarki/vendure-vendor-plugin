@@ -26,30 +26,31 @@ export class VendorEntity extends VendureEntity {
     phone: string;
 	
 	@Column()
-    companyphone: string;
-	
-	@Column()
-    company: string; //company name
+    companyname: string; //company name
 	
 	@Column()
     companyaddr: string; //company address
 	
-	@Column()
-	panVat: string; //pan or vat
+	@Column({default:""})
+    companydesc: string; //company description
 	
 	@Column()
-    panVatnum: string; //pan or vat number
+    companyphone: string;
+	
+	@Column("simple-array")
+    companycategory: string[]; //type of company category
+	
+	@Column()
+	panvat: string; //pan or vat
+	
+	@Column()
+    panvatnum: string; //pan or vat number
 	
 	@Column("simple-array")
     producttype: string[]; //producttheysell
 	
-	
 	//for file, fileToUpload;File
 	
-	@Column("simple-array")
-    selectedItems: string[]; //type of company
-	
-	@Colum()
-	@Generated("uuid")
+	@Column()
 	uuid: string;
 }

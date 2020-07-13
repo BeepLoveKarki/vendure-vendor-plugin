@@ -1,11 +1,11 @@
 import { PluginCommonModule, VendurePlugin } from '@vendure/core';
 import { PluginInitOptions } from './types';
 import { PLUGIN_INIT_OPTIONS } from './constants';
-import { FeedbackEntity } from './entities/feedback.entity';
-import { FeedbackService } from './service/feedback.service';
+import { VendorEntity } from './entities/vendor.entity';
+import { VendorService } from './service/vendor.service';
 import { adminApiExtensions,shopApiExtensions } from './api/api-extensions';
-import { FeedbackShopResolver } from './api/feedback-shop.resolver';
-import { FeedbackAdminResolver } from './api/feedback-admin.resolver';
+import { VendorShopResolver } from './api/vendor-shop.resolver';
+import { VendorAdminResolver } from './api/vendor-admin.resolver';
 import path from 'path';
 import { AdminUiExtension } from '@vendure/ui-devkit/compiler';
 
@@ -28,23 +28,23 @@ import { AdminUiExtension } from '@vendure/ui-devkit/compiler';
     // Importing the PluginCommonModule gives all of our plugin's injectables (services, resolvers)
     // access to the Vendure core providers. See https://www.vendure.io/docs/typescript-api/plugin/plugin-common-module/
     imports: [PluginCommonModule],
-    entities: [FeedbackEntity],
+    entities: [VendorEntity],
     shopApiExtensions: {
         schema: shopApiExtensions,
-        resolvers: [FeedbackShopResolver],
+        resolvers: [VendorShopResolver],
     },
 	adminApiExtensions: {
         schema: adminApiExtensions,
-        resolvers: [FeedbackAdminResolver],
+        resolvers: [VendorAdminResolver],
     },
     providers: [
-       FeedbackService,
+       VendorService,
         // By definiting the `PLUGIN_INIT_OPTIONS` symbol as a provider, we can then inject the
         // user-defined options into other classes, such as the {@link ExampleService}.
-        { provide: PLUGIN_INIT_OPTIONS, useFactory: () => FeedbackPlugin.options },
+        { provide: PLUGIN_INIT_OPTIONS, useFactory: () => VendorPlugin.options },
     ]
 })
-export class FeedbackPlugin {
+export class VendorPlugin {
 
     static options: PluginInitOptions;
 
@@ -54,7 +54,7 @@ export class FeedbackPlugin {
      */
     static init(options: PluginInitOptions) {
         this.options = options;
-        return FeedbackPlugin;
+        return VendorPlugin;
     }
 	
 	static uiExtensions: AdminUiExtension = {
@@ -62,14 +62,14 @@ export class FeedbackPlugin {
         ngModules: [
             {
                 type: 'lazy' as const,
-                route: 'feedbacks',
-                ngModuleFileName: 'feedback-ui-lazy.module.ts',
-                ngModuleName: 'FeedbackUIModule',
+                route: 'vendors',
+                ngModuleFileName: 'vendor-ui-lazy.module.ts',
+                ngModuleName: 'VendorUIModule',
             },
 			{
 			   type: 'shared' as const,
-			   ngModuleFileName: 'feedback-ui-extension.module.ts',
-               ngModuleName: 'FeedbackExtensionModule',
+			   ngModuleFileName: 'vendor-ui-extension.module.ts',
+               ngModuleName: 'VendorExtensionModule',
 			}
         ],
        translations: {

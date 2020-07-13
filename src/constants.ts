@@ -1,3 +1,3 @@
 export const PLUGIN_INIT_OPTIONS = Symbol('PLUGIN_INIT_OPTIONS');
-export const loggerCtx = 'FeedbackPlugin'
+export const loggerCtx = 'VendorPlugin'
 ;

@@ -1430,6 +1430,7 @@ export type Mutation = {
   addFeedback: Feedback;
   addSubscriptionEmail: Array<Maybe<Email>>;
   addSubscriptionPhone: Array<Maybe<Phone>>;
+  addVendor: Vendor;
 };
 
 
@@ -1594,6 +1595,11 @@ export type MutationAddSubscriptionEmailArgs = {
 
 export type MutationAddSubscriptionPhoneArgs = {
   input: Array<PhoneAddInput>;
+};
+
+
+export type MutationAddVendorArgs = {
+  input: VendorAddInput;
 };
 
 export type Node = {
@@ -2537,6 +2543,41 @@ export type User = Node & {
   roles: Array<Role>;
   lastLogin?: Maybe<Scalars['String']>;
   customFields?: Maybe<Scalars['JSON']>;
+};
+
+export type Vendor = Node & {
+  __typename?: 'Vendor';
+  id: Scalars['ID'];
+  firstname: Scalars['String'];
+  lastname: Scalars['String'];
+  email: Scalars['String'];
+  phone: Scalars['String'];
+  companyname: Scalars['String'];
+  companyaddr: Scalars['String'];
+  companydesc?: Maybe<Scalars['String']>;
+  companyphone: Scalars['String'];
+  companycategory: Array<Scalars['String']>;
+  panvat: Scalars['String'];
+  panvatnum: Scalars['String'];
+  producttype: Array<Scalars['String']>;
+  uuid: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type VendorAddInput = {
+  firstname: Scalars['String'];
+  lastname: Scalars['String'];
+  email: Scalars['String'];
+  phone: Scalars['String'];
+  companyname: Scalars['String'];
+  companyaddr: Scalars['String'];
+  companydesc?: Maybe<Scalars['String']>;
+  companyphone: Scalars['String'];
+  companycategory: Array<Scalars['String']>;
+  panvat: Scalars['String'];
+  panvatnum: Scalars['String'];
+  producttype: Array<Scalars['String']>;
 };
 
 export type Zone = Node & {

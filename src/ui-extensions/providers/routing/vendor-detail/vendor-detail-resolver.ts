@@ -2,36 +2,45 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService, BaseEntityResolver } from '@vendure/admin-ui/core';
 import { take } from 'rxjs/operators';
-import { GET_FEEDBACK } from './feedback-detail-resolver.graphql';
+import { GET_VENDOR } from './vendor-detail-resolver.graphql';
 
 import { 
-  GetFeedbackQuery,
-  FeedbacksFragment,
-  GetFeedbackQueryVariables
+  GetVendorQuery,
+  VendorsFragment,
+  GetVendorQueryVariables
 } from '../../../generated-types';
 
 @Injectable()
-export default class FeedbackDetailResolver extends BaseEntityResolver<
-  FeedbacksFragment
+export default class VendorDetailResolver extends BaseEntityResolver<
+  VendorsFragment
 > {
   constructor(router: Router, dataService: DataService) {
     super(
       router,
       {
-        __typename: 'Feedback',
+        __typename: 'Vendor',
         id: '',
-		name: '',
-		email: '',
-		phone: '',
-		feedback: '',
-		createdAt: '',
-		updatedAt: '',
+		firstname:'',
+	    lastname:'',
+	    email:'',
+	    phone:'',
+	    companyname:'',
+		companyaddr:'',
+		companydesc:'',
+		companyphone:'',
+		companycategory:[''],
+		panvat:'',
+		panvatnum:'',
+		producttype:[''],
+		uuid:'',
+		createdAt:'',
+		updatedAt:''
       },
       (id) =>
-        dataService.query<GetFeedbackQuery, GetFeedbackQueryVariables>(GET_FEEDBACK, {
+        dataService.query<GetVendorQuery, GetVendorQueryVariables>(GET_VENDOR, {
             id: id
         })
-        .mapStream((data) => data.Feedback)
+        .mapStream((data) => data.Vendor)
     );
   }
 }

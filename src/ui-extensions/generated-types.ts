@@ -2053,6 +2053,10 @@ export type Mutation = {
   updateSubscriptionPhone: Array<Maybe<Phone>>;
   deleteSubscriptionPhone: Array<Maybe<Phone>>;
   deleteAllSubscriptionPhones: Scalars['Boolean'];
+  addVendor: Vendor;
+  updateVendor: Vendor;
+  deleteVendor: Vendor;
+  deleteAllVendors: Scalars['Boolean'];
 };
 
 
@@ -2567,6 +2571,21 @@ export type MutationUpdateSubscriptionPhoneArgs = {
 
 export type MutationDeleteSubscriptionPhoneArgs = {
   id: Array<Scalars['ID']>;
+};
+
+
+export type MutationAddVendorArgs = {
+  input: VendorAddInput;
+};
+
+
+export type MutationUpdateVendorArgs = {
+  input: VendorUpdateInput;
+};
+
+
+export type MutationDeleteVendorArgs = {
+  id: Scalars['ID'];
 };
 
 export type Node = {
@@ -3316,6 +3335,8 @@ export type Query = {
   SubscriptionEmail?: Maybe<Email>;
   SubscriptionPhones: PhoneList;
   SubscriptionPhone?: Maybe<Phone>;
+  Vendors: VendorList;
+  Vendor?: Maybe<Vendor>;
 };
 
 
@@ -3562,6 +3583,16 @@ export type QuerySubscriptionPhonesArgs = {
 
 
 export type QuerySubscriptionPhoneArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryVendorsArgs = {
+  options?: Maybe<VendorListOptions>;
+};
+
+
+export type QueryVendorArgs = {
   id: Scalars['ID'];
 };
 
@@ -4185,6 +4216,103 @@ export type User = Node & {
   customFields?: Maybe<Scalars['JSON']>;
 };
 
+export type Vendor = Node & {
+  __typename?: 'Vendor';
+  id: Scalars['ID'];
+  firstname: Scalars['String'];
+  lastname: Scalars['String'];
+  email: Scalars['String'];
+  phone: Scalars['String'];
+  companyname: Scalars['String'];
+  companyaddr: Scalars['String'];
+  companydesc?: Maybe<Scalars['String']>;
+  companyphone: Scalars['String'];
+  companycategory: Array<Scalars['String']>;
+  panvat: Scalars['String'];
+  panvatnum: Scalars['String'];
+  producttype: Array<Scalars['String']>;
+  uuid: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type VendorAddInput = {
+  firstname: Scalars['String'];
+  lastname: Scalars['String'];
+  email: Scalars['String'];
+  phone: Scalars['String'];
+  companyname: Scalars['String'];
+  companyaddr: Scalars['String'];
+  companydesc?: Maybe<Scalars['String']>;
+  companyphone: Scalars['String'];
+  companycategory: Array<Scalars['String']>;
+  panvat: Scalars['String'];
+  panvatnum: Scalars['String'];
+  producttype: Array<Scalars['String']>;
+};
+
+export type VendorFilterParameter = {
+  firstname?: Maybe<StringOperators>;
+  lastname?: Maybe<StringOperators>;
+  email?: Maybe<StringOperators>;
+  phone?: Maybe<StringOperators>;
+  companyname?: Maybe<StringOperators>;
+  companyaddr?: Maybe<StringOperators>;
+  companydesc?: Maybe<StringOperators>;
+  companyphone?: Maybe<StringOperators>;
+  panvat?: Maybe<StringOperators>;
+  panvatnum?: Maybe<StringOperators>;
+  uuid?: Maybe<StringOperators>;
+  createdAt?: Maybe<DateOperators>;
+  updatedAt?: Maybe<DateOperators>;
+};
+
+export type VendorList = PaginatedList & {
+  __typename?: 'VendorList';
+  items: Array<Vendor>;
+  totalItems: Scalars['Int'];
+};
+
+export type VendorListOptions = {
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  sort?: Maybe<VendorSortParameter>;
+  filter?: Maybe<VendorFilterParameter>;
+};
+
+export type VendorSortParameter = {
+  id?: Maybe<SortOrder>;
+  firstname?: Maybe<SortOrder>;
+  lastname?: Maybe<SortOrder>;
+  email?: Maybe<SortOrder>;
+  phone?: Maybe<SortOrder>;
+  companyname?: Maybe<SortOrder>;
+  companyaddr?: Maybe<SortOrder>;
+  companydesc?: Maybe<SortOrder>;
+  companyphone?: Maybe<SortOrder>;
+  panvat?: Maybe<SortOrder>;
+  panvatnum?: Maybe<SortOrder>;
+  uuid?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
+export type VendorUpdateInput = {
+  id: Scalars['ID'];
+  firstname: Scalars['String'];
+  lastname: Scalars['String'];
+  email: Scalars['String'];
+  phone: Scalars['String'];
+  companyname: Scalars['String'];
+  companyaddr: Scalars['String'];
+  companydesc?: Maybe<Scalars['String']>;
+  companyphone: Scalars['String'];
+  companycategory: Array<Scalars['String']>;
+  panvat: Scalars['String'];
+  panvatnum: Scalars['String'];
+  producttype: Array<Scalars['String']>;
+};
+
 export type Zone = Node & {
   __typename?: 'Zone';
   id: Scalars['ID'];
@@ -4194,111 +4322,111 @@ export type Zone = Node & {
   members: Array<Country>;
 };
 
-export namespace Feedbacks {
-  export type Fragment = FeedbacksFragment;
+export namespace Vendors {
+  export type Fragment = VendorsFragment;
 }
 
-export namespace GetAllFeedbacks {
-  export type Variables = GetAllFeedbacksQueryVariables;
-  export type Query = GetAllFeedbacksQuery;
-  export type Feedbacks = GetAllFeedbacksQuery['Feedbacks'];
-  export type Items = (NonNullable<GetAllFeedbacksQuery['Feedbacks']['items'][0]>);
+export namespace GetAllVendors {
+  export type Variables = GetAllVendorsQueryVariables;
+  export type Query = GetAllVendorsQuery;
+  export type Vendors = GetAllVendorsQuery['Vendors'];
+  export type Items = (NonNullable<GetAllVendorsQuery['Vendors']['items'][0]>);
 }
 
-export namespace DeleteFeedback {
-  export type Variables = DeleteFeedbackMutationVariables;
-  export type Mutation = DeleteFeedbackMutation;
-  export type DeleteFeedback = DeleteFeedbackMutation['deleteFeedback'];
+export namespace DeleteVendor {
+  export type Variables = DeleteVendorMutationVariables;
+  export type Mutation = DeleteVendorMutation;
+  export type DeleteVendor = DeleteVendorMutation['deleteVendor'];
 }
 
-export namespace UpdateFeedback {
-  export type Variables = UpdateFeedbackMutationVariables;
-  export type Mutation = UpdateFeedbackMutation;
-  export type UpdateFeedback = UpdateFeedbackMutation['updateFeedback'];
+export namespace UpdateVendor {
+  export type Variables = UpdateVendorMutationVariables;
+  export type Mutation = UpdateVendorMutation;
+  export type UpdateVendor = UpdateVendorMutation['updateVendor'];
 }
 
-export namespace CreateFeedback {
-  export type Variables = CreateFeedbackMutationVariables;
-  export type Mutation = CreateFeedbackMutation;
-  export type AddFeedback = CreateFeedbackMutation['addFeedback'];
+export namespace CreateVendor {
+  export type Variables = CreateVendorMutationVariables;
+  export type Mutation = CreateVendorMutation;
+  export type AddVendor = CreateVendorMutation['addVendor'];
 }
 
-export namespace GetFeedback {
-  export type Variables = GetFeedbackQueryVariables;
-  export type Query = GetFeedbackQuery;
-  export type Feedback = (NonNullable<GetFeedbackQuery['Feedback']>);
+export namespace GetVendor {
+  export type Variables = GetVendorQueryVariables;
+  export type Query = GetVendorQuery;
+  export type Vendor = (NonNullable<GetVendorQuery['Vendor']>);
 }
 
-export type FeedbacksFragment = (
-  { __typename?: 'Feedback' }
-  & Pick<Feedback, 'id' | 'name' | 'email' | 'phone' | 'feedback' | 'createdAt' | 'updatedAt'>
+export type VendorsFragment = (
+  { __typename?: 'Vendor' }
+  & Pick<Vendor, 'id' | 'firstname' | 'lastname' | 'email' | 'phone' | 'companyname' | 'companyaddr' | 'companydesc' | 'companyphone' | 'companycategory' | 'panvat' | 'panvatnum' | 'producttype' | 'uuid' | 'createdAt' | 'updatedAt'>
 );
 
-export type GetAllFeedbacksQueryVariables = Exact<{
-  options?: Maybe<FeedbackListOptions>;
+export type GetAllVendorsQueryVariables = Exact<{
+  options?: Maybe<VendorListOptions>;
 }>;
 
 
-export type GetAllFeedbacksQuery = (
+export type GetAllVendorsQuery = (
   { __typename?: 'Query' }
-  & { Feedbacks: (
-    { __typename?: 'FeedbackList' }
-    & Pick<FeedbackList, 'totalItems'>
+  & { Vendors: (
+    { __typename?: 'VendorList' }
+    & Pick<VendorList, 'totalItems'>
     & { items: Array<(
-      { __typename?: 'Feedback' }
-      & FeedbacksFragment
+      { __typename?: 'Vendor' }
+      & VendorsFragment
     )> }
   ) }
 );
 
-export type DeleteFeedbackMutationVariables = Exact<{
+export type DeleteVendorMutationVariables = Exact<{
   input: Scalars['ID'];
 }>;
 
 
-export type DeleteFeedbackMutation = (
+export type DeleteVendorMutation = (
   { __typename?: 'Mutation' }
-  & { deleteFeedback: (
-    { __typename?: 'Feedback' }
-    & FeedbacksFragment
+  & { deleteVendor: (
+    { __typename?: 'Vendor' }
+    & VendorsFragment
   ) }
 );
 
-export type UpdateFeedbackMutationVariables = Exact<{
-  input: FeedbackUpdateInput;
+export type UpdateVendorMutationVariables = Exact<{
+  input: VendorUpdateInput;
 }>;
 
 
-export type UpdateFeedbackMutation = (
+export type UpdateVendorMutation = (
   { __typename?: 'Mutation' }
-  & { updateFeedback: (
-    { __typename?: 'Feedback' }
-    & FeedbacksFragment
+  & { updateVendor: (
+    { __typename?: 'Vendor' }
+    & VendorsFragment
   ) }
 );
 
-export type CreateFeedbackMutationVariables = Exact<{
-  input: FeedbackAddInput;
+export type CreateVendorMutationVariables = Exact<{
+  input: VendorAddInput;
 }>;
 
 
-export type CreateFeedbackMutation = (
+export type CreateVendorMutation = (
   { __typename?: 'Mutation' }
-  & { addFeedback: (
-    { __typename?: 'Feedback' }
-    & FeedbacksFragment
+  & { addVendor: (
+    { __typename?: 'Vendor' }
+    & VendorsFragment
   ) }
 );
 
-export type GetFeedbackQueryVariables = Exact<{
+export type GetVendorQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type GetFeedbackQuery = (
+export type GetVendorQuery = (
   { __typename?: 'Query' }
-  & { Feedback?: Maybe<(
-    { __typename?: 'Feedback' }
-    & FeedbacksFragment
+  & { Vendor?: Maybe<(
+    { __typename?: 'Vendor' }
+    & VendorsFragment
   )> }
 );

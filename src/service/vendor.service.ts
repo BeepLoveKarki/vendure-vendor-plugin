@@ -6,57 +6,65 @@ import { ListQueryBuilder,getEntityOrThrow } from '@vendure/core';
 
 import { ListQueryOptions } from '@vendure/core/dist/common/types/common-types';
 
-import { FeedbackEntity } from '../entities/feedback.entity';
+import { VendorEntity } from '../entities/vendor.entity';
 import { PLUGIN_INIT_OPTIONS } from '../constants';
 import { PluginInitOptions } from '../types';
 
 @Injectable()
-export class FeedbackService {
+export class VendorService {
 
     constructor(@InjectConnection() private connection: Connection,
                 @Inject(PLUGIN_INIT_OPTIONS) private options: PluginInitOptions,
 				private listQueryBuilder: ListQueryBuilder) {}
 
-    async getAllFeedbacks(ctx,options?: ListQueryOptions<FeedbackEntity>) {
+    async getAllVendors(ctx,options?: ListQueryOptions<VendorEntity>) {
         return this.listQueryBuilder
-		.build(FeedbackEntity, options)
+		.build(VendorEntity, options)
 		.getManyAndCount()
-		.then(([feedbacks, totalItems]) => {
+		.then(([vendors, totalItems]) => {
 			return {
-				items: feedbacks,
+				items: vendors,
 				totalItems
 			 };
 		 });
     }
 	
-	async getFeedbackById(ctx,data){
-	   return getEntityOrThrow(this.connection, FeedbackEntity, data);
+	async getVendorById(ctx,data){
+	   return getEntityOrThrow(this.connection, VendorEntity, data);
 	}
 	
-	async addSingleFeedback(ctx,data){
-	   const createdVariant = this.connection.getRepository(FeedbackEntity).create(data);
-	   const savedVariant = await this.connection.getRepository(FeedbackEntity).save(createdVariant);
+	async addSingleVendor(ctx,data){
+	   const createdVariant = this.connection.getRepository(VendorEntity).create(data);
+	   const savedVariant = await this.connection.getRepository(VendorEntity).save(createdVariant);
 	   return savedVariant;
 	}
 	
-	async updateSingleFeedback(ctx,data){
-	   const createdVariant = await this.connection.getRepository(FeedbackEntity).update(data.id,{
-		   name: data.name || "Anonymous",
-		   email: data.email || "Anonymous",
-		   phone: data.phone || "Anonymous",
-		   feedback: data.feedback
+	async updateSingleVendor(ctx,data){
+	   const createdVariant = await this.connection.getRepository(VendorEntity).update(data.id,{
+		   firstname:data.firstname,
+	       lastname:data.lastname,
+	       email:data.email,
+	       phone:data.phone,
+	       companyname:data.companyname,
+	       companyaddr:data.companyaddr,
+	       companydesc:data.companydesc||"",
+	       companyphone:data.companyphone,
+	       companycategory:data.companycategory,
+	       panvat:data.panvat,
+	       panvatnum:data.panvatnum,
+	       producttype:data.producttype
 	   });
-	   return getEntityOrThrow(this.connection, FeedbackEntity, data.id);
+	   return getEntityOrThrow(this.connection, VendorEntity, data.id);
 	}
 	
-	async deleteSingleFeedback(ctx,ids){
-	   const Variants = await getEntityOrThrow(this.connection, FeedbackEntity, ids);
-	   this.connection.getRepository(FeedbackEntity).delete(ids);
+	async deleteSingleVendor(ctx,ids){
+	   const Variants = await getEntityOrThrow(this.connection, VendorEntity, ids);
+	   this.connection.getRepository(VendorEntity).delete(ids);
 	   return Variants;
 	}
 	
-	deleteAllFeedbacks(ctx){
-	   this.connection.getRepository(FeedbackEntity).clear();
+	deleteAllVendors(ctx){
+	   this.connection.getRepository(VendorEntity).clear();
 	   return true;
 	}
 	
