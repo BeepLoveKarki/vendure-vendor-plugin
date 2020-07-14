@@ -48,24 +48,21 @@
         <input id="companyphone" type="number" formControlName="companyphone" [readonly]="!'UpdateSettings'" />
     </vdr-form-field>
 	<vdr-form-field [label]="'vdr-vendor-plugin.companycategory-label' | translate" for="companycategory">
-        <input id="companycategory" type="text" formControlName="companycategory" [readonly]="!'UpdateSettings'" />
+		<textarea id="companycategory" formControlName="companycategory" placeholder="Separate Multiple Values in Comma" rows="5" cols="50" [readonly]="!'UpdateSettings'">
+		</textarea>
     </vdr-form-field>
-	<!--vdr-form-field [label]="'vdr-vendor-plugin.companydoc-label' | translate" for="companydoc">
-        <input id="companydoc" type="text" formControlName="uuid" [readonly]="!'UpdateSettings'" />
-    </vdr-form-field-->
+	<vdr-form-field [label]="'vdr-vendor-plugin.companydoc-label' | translate" for="companydoc">
+        <input id="companydoc" type="file" formControlName="companydoc" accept="image/*,application/pdf,application/msword" [readonly]="!'UpdateSettings'" />
+    </vdr-form-field>
 	<vdr-form-field [label]="'vdr-vendor-plugin.panvat-label' | translate" for="panvat">
         <input id="panvat" type="text" formControlName="panvat" [readonly]="!'UpdateSettings'" />
     </vdr-form-field>
-	<vdr-form-field [label]="'vdr-vendor-plugin.patvannum-label' | translate" for="panvatnum">
+	<vdr-form-field [label]="'vdr-vendor-plugin.panvatnum-label' | translate" for="panvatnum">
         <input id="panvatnum" type="text" formControlName="panvatnum" [readonly]="!'UpdateSettings'" />
     </vdr-form-field>
 	<vdr-form-field [label]="'vdr-vendor-plugin.producttype-label' | translate" for="producttype">
-        <input id="producttype" type="text" formControlName="producttype" [readonly]="!'UpdateSettings'" />
+		<textarea id="producttype" formControlName="producttype" rows="5" cols="50" placeholder="Separate Multiple Values in Comma" [readonly]="!'UpdateSettings'">
+		</textarea>
     </vdr-form-field>
 	
-	<!--vdr-form-field [label]="'vdr-vendor-plugin.vendor-label' | translate" for="email"-->
-        <!--input id="vendor" type="text" formControlName="vendor" [readonly]="!'UpdateSettings'" /-->
-		<!--textarea id="vendor" formControlName="vendor" [readonly]="!'UpdateSettings'">
-		</textarea-->
-    <!--/vdr-form-field-->
 </form>

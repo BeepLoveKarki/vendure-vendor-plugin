@@ -53,6 +53,7 @@ export class VendorDetailComponent extends BaseDetailComponent<VendorsFragment>
 			companydesc:'',
 			companyphone:['',Validators.required],
 			companycategory:['',Validators.required],
+			companydoc:'',
 			panvat:['',Validators.required],
 			panvatnum:['',Validators.required],
 			producttype:['',Validators.required]
@@ -123,10 +124,10 @@ export class VendorDetailComponent extends BaseDetailComponent<VendorsFragment>
 				companyaddr:formValue.companyaddr,
 				companydesc:formValue.companydesc||"",
 				companyphone:formValue.companyphone.toString(),
-				companycategory:formValue.companycategory,
+				companycategory:formValue.companycategory.split(","),
 				panvat:formValue.panvat,
 				panvatnum:formValue.panvatnum,
-				producttype:formValue.producttype
+				producttype:formValue.producttype.split(",")
             };
             return this.dataService
                 .mutate<CreateVendor.Mutation,CreateVendor.Variables>(CREATE_VENDOR, {
@@ -151,10 +152,10 @@ export class VendorDetailComponent extends BaseDetailComponent<VendorsFragment>
 				companyaddr:formValue.companyaddr,
 				companydesc:formValue.companydesc||"",
 				companyphone:formValue.companyphone.toString(),
-				companycategory:formValue.companycategory,
+				companycategory:formValue.companycategory.split(","),
 				panvat:formValue.panvat,
 				panvatnum:formValue.panvatnum,
-				producttype:formValue.producttype
+				producttype:formValue.producttype.split(",")
             };
             return this.dataService
                 .mutate<UpdateVendor.Mutation,UpdateVendor.Variables>(UPDATE_VENDOR, {
@@ -177,10 +178,10 @@ export class VendorDetailComponent extends BaseDetailComponent<VendorsFragment>
 			 companyaddr:entity.companyaddr,
 			 companydesc:entity.companydesc||"",
 			 companyphone:parseInt(entity.companyphone),
-			 companycategory:entity.companycategory,
+			 companycategory:entity.companycategory.join(","),
 			 panvat:entity.panvat,
 			 panvatnum:entity.panvatnum,
-			 producttype:entity. producttype,
+			 producttype:entity.producttype.join(","),
 		  });
 	}
     
