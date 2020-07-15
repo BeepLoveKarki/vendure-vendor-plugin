@@ -30,6 +30,7 @@ import { CREATE_VENDOR,UPDATE_VENDOR } from './vendor-detail.graphql';
 export class VendorDetailComponent extends BaseDetailComponent<VendorsFragment>
     implements OnInit, OnDestroy {
     detailForm: FormGroup;
+	data:File;
 	which = false;
 	
 	constructor(
@@ -73,7 +74,7 @@ export class VendorDetailComponent extends BaseDetailComponent<VendorsFragment>
 	ngOnDestroy() {
       this.destroy();
     }
-	
+		
 	create(){
 	   this.addNew()
             .pipe(filter(result => !!result))
@@ -91,6 +92,7 @@ export class VendorDetailComponent extends BaseDetailComponent<VendorsFragment>
                     });
                 },
             );
+	
 	}
 	
 	save() {
@@ -112,10 +114,14 @@ export class VendorDetailComponent extends BaseDetailComponent<VendorsFragment>
             );
     }
 	
+	upload($event){
+	   this.data = $event.target.files[0];
+	}
+	
 	private addNew(): Observable<boolean>{
 	   if (this.detailForm.dirty) {
             const formValue = this.detailForm.value;
-            const input: VendorAddInput = {
+			const input: VendorAddInput = {
 				firstname:formValue.firstname,
 				lastname:formValue.lastname,
 				email:formValue.email,
@@ -127,17 +133,19 @@ export class VendorDetailComponent extends BaseDetailComponent<VendorsFragment>
 				companycategory:formValue.companycategory.split(","),
 				panvat:formValue.panvat,
 				panvatnum:formValue.panvatnum,
+				file:this.data,
 				producttype:formValue.producttype.split(",")
             };
-            return this.dataService
-                .mutate<CreateVendor.Mutation,CreateVendor.Variables>(CREATE_VENDOR, {
+			console.log("b");
+            return this.dataService.mutate<CreateVendor.Mutation,CreateVendor.Variables>(CREATE_VENDOR, {
                     input,
-                })
-                .pipe(mapTo(true));
-        } else {
+            }).pipe(mapTo(true));
+		} else {
+			console.log("a");
             return of(false);
         }
 	}
+	
 	
 	private saveChanges(): Observable<boolean> {
         if (this.detailForm.dirty) {
@@ -155,6 +163,7 @@ export class VendorDetailComponent extends BaseDetailComponent<VendorsFragment>
 				companycategory:formValue.companycategory.split(","),
 				panvat:formValue.panvat,
 				panvatnum:formValue.panvatnum,
+				file:this.data,
 				producttype:formValue.producttype.split(",")
             };
             return this.dataService
@@ -168,7 +177,6 @@ export class VendorDetailComponent extends BaseDetailComponent<VendorsFragment>
     }
 	
 	protected setFormValues(entity: VendorsFragment) {
-		  console.log(entity.uuid);
 		  this.detailForm.patchValue({
 			 firstname:entity.firstname,
 			 lastname:entity.lastname,

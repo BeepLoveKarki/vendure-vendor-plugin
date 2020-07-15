@@ -4,17 +4,11 @@ import { RequestContext, Ctx, Allow, Permission } from '@vendure/core';
 
 @Resolver()
 export class VendorAdminResolver {
-    constructor(private vendorService: VendorService) {
-    }
 	
-	create_UUID(){
-		let dt = new Date().getTime();
-		let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-			let r = (dt + Math.random()*16)%16 | 0;
-			dt = Math.floor(dt/16);
-			return (c=='x' ? r :(r&0x3|0x8)).toString(16);
-         });
-        return uuid;
+	static assetId:string;
+	static assetsource:string;
+	
+    constructor(private vendorService: VendorService) {
     }
 
     @Query()
@@ -31,12 +25,12 @@ export class VendorAdminResolver {
         return this.vendorService.getVendorById(ctx,id);
     }
 	
+	
 	@Mutation()
 	@Allow(Permission.CreateSettings)
 	addVendor(@Ctx() ctx: RequestContext, @Args() args: any){
 	   const {input} = args;
-	   input.uuid=this.create_UUID();
-	   return this.vendorService.addSingleVendor(ctx,input);
+       return this.vendorService.addSingleVendor(ctx,input);
 	}
 	
 	

@@ -22,7 +22,7 @@
     </vdr-ab-right>
 </vdr-action-bar>
 
-<form class="form" [formGroup]="detailForm">
+<form class="form" enctype="multipart/form-data" [formGroup]="detailForm">
     <vdr-form-field [label]="'vdr-vendor-plugin.firstname-label' | translate" for="firstname">
         <input id="firstname" type="text" formControlName="firstname" [readonly]="!'UpdateSettings'" />
     </vdr-form-field>
@@ -52,7 +52,7 @@
 		</textarea>
     </vdr-form-field>
 	<vdr-form-field [label]="'vdr-vendor-plugin.companydoc-label' | translate" for="companydoc">
-        <input id="companydoc" type="file" formControlName="companydoc" accept="image/*,application/pdf,application/msword" [readonly]="!'UpdateSettings'" />
+        <input id="companydoc" (change)="upload($event)" type="file" formControlName="companydoc" accept="image/*,application/pdf,application/msword" [readonly]="!'UpdateSettings'" />
     </vdr-form-field>
 	<vdr-form-field [label]="'vdr-vendor-plugin.panvat-label' | translate" for="panvat">
         <input id="panvat" type="text" formControlName="panvat" [readonly]="!'UpdateSettings'" />

@@ -1329,6 +1329,13 @@ export type FeedbackUpdateInput = {
   feedback: Scalars['String'];
 };
 
+export type File = {
+  __typename?: 'File';
+  filename: Scalars['String'];
+  mimetype: Scalars['String'];
+  encoding: Scalars['String'];
+};
+
 export type FloatCustomFieldConfig = CustomField & {
   __typename?: 'FloatCustomFieldConfig';
   name: Scalars['String'];
@@ -4231,7 +4238,8 @@ export type Vendor = Node & {
   panvat: Scalars['String'];
   panvatnum: Scalars['String'];
   producttype: Array<Scalars['String']>;
-  uuid: Scalars['String'];
+  assetid?: Maybe<Scalars['String']>;
+  assetsource?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -4246,6 +4254,23 @@ export type VendorAddInput = {
   companydesc?: Maybe<Scalars['String']>;
   companyphone: Scalars['String'];
   companycategory: Array<Scalars['String']>;
+  file?: Maybe<Scalars['Upload']>;
+  panvat: Scalars['String'];
+  panvatnum: Scalars['String'];
+  producttype: Array<Scalars['String']>;
+};
+
+export type VendorAddInputShop = {
+  firstname: Scalars['String'];
+  lastname: Scalars['String'];
+  email: Scalars['String'];
+  phone: Scalars['String'];
+  companyname: Scalars['String'];
+  companyaddr: Scalars['String'];
+  companydesc?: Maybe<Scalars['String']>;
+  companyphone: Scalars['String'];
+  companycategory: Array<Scalars['String']>;
+  file: Scalars['Upload'];
   panvat: Scalars['String'];
   panvatnum: Scalars['String'];
   producttype: Array<Scalars['String']>;
@@ -4262,7 +4287,8 @@ export type VendorFilterParameter = {
   companyphone?: Maybe<StringOperators>;
   panvat?: Maybe<StringOperators>;
   panvatnum?: Maybe<StringOperators>;
-  uuid?: Maybe<StringOperators>;
+  assetid?: Maybe<StringOperators>;
+  assetsource?: Maybe<StringOperators>;
   createdAt?: Maybe<DateOperators>;
   updatedAt?: Maybe<DateOperators>;
 };
@@ -4292,7 +4318,8 @@ export type VendorSortParameter = {
   companyphone?: Maybe<SortOrder>;
   panvat?: Maybe<SortOrder>;
   panvatnum?: Maybe<SortOrder>;
-  uuid?: Maybe<SortOrder>;
+  assetid?: Maybe<SortOrder>;
+  assetsource?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -4308,6 +4335,7 @@ export type VendorUpdateInput = {
   companydesc?: Maybe<Scalars['String']>;
   companyphone: Scalars['String'];
   companycategory: Array<Scalars['String']>;
+  file?: Maybe<Scalars['Upload']>;
   panvat: Scalars['String'];
   panvatnum: Scalars['String'];
   producttype: Array<Scalars['String']>;
@@ -4359,7 +4387,7 @@ export namespace GetVendor {
 
 export type VendorsFragment = (
   { __typename?: 'Vendor' }
-  & Pick<Vendor, 'id' | 'firstname' | 'lastname' | 'email' | 'phone' | 'companyname' | 'companyaddr' | 'companydesc' | 'companyphone' | 'companycategory' | 'panvat' | 'panvatnum' | 'producttype' | 'uuid' | 'createdAt' | 'updatedAt'>
+  & Pick<Vendor, 'id' | 'firstname' | 'lastname' | 'email' | 'phone' | 'companyname' | 'companyaddr' | 'companydesc' | 'companyphone' | 'companycategory' | 'panvat' | 'panvatnum' | 'producttype' | 'assetid' | 'assetsource' | 'createdAt' | 'updatedAt'>
 );
 
 export type GetAllVendorsQueryVariables = Exact<{

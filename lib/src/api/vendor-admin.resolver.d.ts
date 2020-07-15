@@ -2,8 +2,9 @@ import { VendorService } from '../service/vendor.service';
 import { RequestContext } from '@vendure/core';
 export declare class VendorAdminResolver {
     private vendorService;
+    static assetId: string;
+    static assetsource: string;
     constructor(vendorService: VendorService);
-    create_UUID(): string;
     Vendors(ctx: RequestContext, args: any): Promise<{
         items: import("../entities/vendor.entity").VendorEntity[];
         totalItems: number;

@@ -51,6 +51,9 @@ export class VendorEntity extends VendureEntity {
 	
 	//for file, fileToUpload;File
 	
-	@Column()
-	uuid: string;
+	@Column({default:""})
+	assetid: string;
+	
+	@Column({default:""})
+	assetsource: string;
 }

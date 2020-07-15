@@ -15,10 +15,17 @@ const commonExtensions = gql `
 		panvat:String!
 		panvatnum:String!
 		producttype:[String!]!
-        uuid:String!		
+        assetid:String
+        assetsource:String		
         createdAt: DateTime!
         updatedAt: DateTime!
     }
+  
+  type File {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+  }
 	
   input VendorAddInput{
 	  firstname:String!
@@ -30,6 +37,23 @@ const commonExtensions = gql `
 	  companydesc:String
 	  companyphone:String!
 	  companycategory:[String!]!
+	  file: Upload
+	  panvat:String!
+	  panvatnum:String!
+	  producttype:[String!]! 
+  }
+  
+  input VendorAddInputShop{
+	  firstname:String!
+	  lastname:String!
+	  email:String!
+	  phone:String!
+	  companyname:String!
+	  companyaddr:String!
+	  companydesc:String
+	  companyphone:String!
+	  companycategory:[String!]!
+	  file: Upload!
 	  panvat:String!
 	  panvatnum:String!
 	  producttype:[String!]! 
@@ -41,7 +65,7 @@ export const shopApiExtensions = gql`
     ${commonExtensions}
 	
 	extend type Mutation {
-        addVendor(input:VendorAddInput!): Vendor!
+        addVendor(input:VendorAddInputShop!): Vendor!
     }
 	
 `;
@@ -60,6 +84,7 @@ export const adminApiExtensions = gql`
 	  companydesc:String
 	  companyphone:String!
 	  companycategory:[String!]!
+	  file: Upload
 	  panvat:String!
 	  panvatnum:String!
 	  producttype:[String!]!

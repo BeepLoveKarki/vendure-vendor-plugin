@@ -18,5 +18,6 @@ export declare class VendorEntity extends VendureEntity {
     panvat: string;
     panvatnum: string;
     producttype: string[];
-    uuid: string;
+    assetid: string;
+    assetsource: string;
 }

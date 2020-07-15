@@ -37,10 +37,10 @@
 	<vdr-dt-column>{{ 'vdr-vendor-plugin.companydesc' | translate }}</vdr-dt-column>
     <vdr-dt-column>{{ 'vdr-vendor-plugin.companyphone' | translate }}</vdr-dt-column>
 	<vdr-dt-column>{{ 'vdr-vendor-plugin.companycategory' | translate }}</vdr-dt-column>
-	<vdr-dt-column>{{ 'vdr-vendor-plugin.companydoc' | translate }}</vdr-dt-column>
 	<vdr-dt-column>{{ 'vdr-vendor-plugin.panvat' | translate }}</vdr-dt-column>
 	<vdr-dt-column>{{ 'vdr-vendor-plugin.panvatnum' | translate }}</vdr-dt-column>
 	<vdr-dt-column>{{ 'vdr-vendor-plugin.producttype' | translate }}</vdr-dt-column>
+	<vdr-dt-column>{{ 'vdr-vendor-plugin.companydoc' | translate }}</vdr-dt-column>
     <vdr-dt-column></vdr-dt-column>
 	<vdr-dt-column></vdr-dt-column>
     <ng-template let-vendor="item">
@@ -51,10 +51,13 @@
 		<td class="left align-middle">{{ vendor.companydesc }}</td>
 		<td class="left align-middle">{{ vendor.companyphone }}</td>
 		<td class="left align-middle">{{ vendor.companycategory }}</td>
-		<td class="left align-middle">{{ vendor.uuid }}</td> <!--doclink-->
 		<td class="left align-middle">{{ vendor.panvat }}</td>
 		<td class="left align-middle">{{ vendor.panvatnum }}</td>
 		<td class="left align-middle">{{ vendor.producttype }}</td>
+		<td class="left align-middle" *ngIf="vendor.assetsource.length!=0;else noasset"><a href="{{routeurl}}/assets/{{ vendor.assetsource }}" target="_blank">View Doc</a></td> <!--doclink-->
+		<ng-template #noasset>
+		  <td class="left align-middle">-</td>
+		</ng-template>
 		<td class="right align-middle" *vdrIfPermissions="'UpdateSettings'">
             <vdr-table-row-action
                 iconShape="edit"

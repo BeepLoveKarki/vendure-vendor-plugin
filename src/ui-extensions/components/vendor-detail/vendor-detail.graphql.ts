@@ -19,3 +19,4 @@ export const CREATE_VENDOR = gql`
     }
     ${VENDOR_FRAGMENT}
 `;
+

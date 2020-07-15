@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 
-import { ListQueryBuilder,getEntityOrThrow } from '@vendure/core';
+import { ListQueryBuilder,getEntityOrThrow,AssetService } from '@vendure/core';
 
 import { ListQueryOptions } from '@vendure/core/dist/common/types/common-types';
 
@@ -15,7 +15,8 @@ export class VendorService {
 
     constructor(@InjectConnection() private connection: Connection,
                 @Inject(PLUGIN_INIT_OPTIONS) private options: PluginInitOptions,
-				private listQueryBuilder: ListQueryBuilder) {}
+				private listQueryBuilder: ListQueryBuilder,
+				private assetService: AssetService) {}
 
     async getAllVendors(ctx,options?: ListQueryOptions<VendorEntity>) {
         return this.listQueryBuilder
@@ -34,13 +35,45 @@ export class VendorService {
 	}
 	
 	async addSingleVendor(ctx,data){
+	   if(data.file){
+	     const asset = await this.assetService.create(ctx, data);
+	     data.assetid = asset.id;
+	     data.assetsource = asset.source;
+	     delete data.file;
+	   }else{
+	     data.assetid="";
+		 data.assetsource="";
+	   }
 	   const createdVariant = this.connection.getRepository(VendorEntity).create(data);
 	   const savedVariant = await this.connection.getRepository(VendorEntity).save(createdVariant);
 	   return savedVariant;
 	}
 	
 	async updateSingleVendor(ctx,data){
-	   const createdVariant = await this.connection.getRepository(VendorEntity).update(data.id,{
+	   let details:any;
+	   if(data.file){
+	     const asset = await this.assetService.create(ctx, data);
+	     data.assetid = asset.id;
+	     data.assetsource = asset.source;
+	     delete data.file;
+		 details ={
+		   firstname:data.firstname,
+	       lastname:data.lastname,
+	       email:data.email,
+	       phone:data.phone,
+	       companyname:data.companyname,
+	       companyaddr:data.companyaddr,
+	       companydesc:data.companydesc||"",
+	       companyphone:data.companyphone,
+	       companycategory:data.companycategory,
+	       panvat:data.panvat,
+	       panvatnum:data.panvatnum,
+	       producttype:data.producttype,
+		   assetid:data.assetid,
+		   assetsource:data.assetsource
+		 }
+	   }else{
+	      details ={
 		   firstname:data.firstname,
 	       lastname:data.lastname,
 	       email:data.email,
@@ -53,7 +86,9 @@ export class VendorService {
 	       panvat:data.panvat,
 	       panvatnum:data.panvatnum,
 	       producttype:data.producttype
-	   });
+		 }
+	   }
+	   const createdVariant = await this.connection.getRepository(VendorEntity).update(data.id,details);
 	   return getEntityOrThrow(this.connection, VendorEntity, data.id);
 	}
 	

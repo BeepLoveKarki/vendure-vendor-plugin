@@ -1,5 +1,5 @@
 import { Connection } from 'typeorm';
-import { ListQueryBuilder } from '@vendure/core';
+import { ListQueryBuilder, AssetService } from '@vendure/core';
 import { ListQueryOptions } from '@vendure/core/dist/common/types/common-types';
 import { VendorEntity } from '../entities/vendor.entity';
 import { PluginInitOptions } from '../types';
@@ -7,7 +7,8 @@ export declare class VendorService {
     private connection;
     private options;
     private listQueryBuilder;
-    constructor(connection: Connection, options: PluginInitOptions, listQueryBuilder: ListQueryBuilder);
+    private assetService;
+    constructor(connection: Connection, options: PluginInitOptions, listQueryBuilder: ListQueryBuilder, assetService: AssetService);
     getAllVendors(ctx: any, options?: ListQueryOptions<VendorEntity>): Promise<{
         items: VendorEntity[];
         totalItems: number;

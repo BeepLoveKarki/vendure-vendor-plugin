@@ -887,6 +887,13 @@ export type FeedbackAddInput = {
   feedback: Scalars['String'];
 };
 
+export type File = {
+  __typename?: 'File';
+  filename: Scalars['String'];
+  mimetype: Scalars['String'];
+  encoding: Scalars['String'];
+};
+
 export type FloatCustomFieldConfig = CustomField & {
   __typename?: 'FloatCustomFieldConfig';
   name: Scalars['String'];
@@ -1599,7 +1606,7 @@ export type MutationAddSubscriptionPhoneArgs = {
 
 
 export type MutationAddVendorArgs = {
-  input: VendorAddInput;
+  input: VendorAddInputShop;
 };
 
 export type Node = {
@@ -2560,7 +2567,8 @@ export type Vendor = Node & {
   panvat: Scalars['String'];
   panvatnum: Scalars['String'];
   producttype: Array<Scalars['String']>;
-  uuid: Scalars['String'];
+  assetid?: Maybe<Scalars['String']>;
+  assetsource?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -2575,6 +2583,23 @@ export type VendorAddInput = {
   companydesc?: Maybe<Scalars['String']>;
   companyphone: Scalars['String'];
   companycategory: Array<Scalars['String']>;
+  file?: Maybe<Scalars['Upload']>;
+  panvat: Scalars['String'];
+  panvatnum: Scalars['String'];
+  producttype: Array<Scalars['String']>;
+};
+
+export type VendorAddInputShop = {
+  firstname: Scalars['String'];
+  lastname: Scalars['String'];
+  email: Scalars['String'];
+  phone: Scalars['String'];
+  companyname: Scalars['String'];
+  companyaddr: Scalars['String'];
+  companydesc?: Maybe<Scalars['String']>;
+  companyphone: Scalars['String'];
+  companycategory: Array<Scalars['String']>;
+  file: Scalars['Upload'];
   panvat: Scalars['String'];
   panvatnum: Scalars['String'];
   producttype: Array<Scalars['String']>;
