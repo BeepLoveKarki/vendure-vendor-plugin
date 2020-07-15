@@ -1329,13 +1329,6 @@ export type FeedbackUpdateInput = {
   feedback: Scalars['String'];
 };
 
-export type File = {
-  __typename?: 'File';
-  filename: Scalars['String'];
-  mimetype: Scalars['String'];
-  encoding: Scalars['String'];
-};
-
 export type FloatCustomFieldConfig = CustomField & {
   __typename?: 'FloatCustomFieldConfig';
   name: Scalars['String'];

@@ -20,12 +20,6 @@ const commonExtensions = gql `
         createdAt: DateTime!
         updatedAt: DateTime!
     }
-  
-  type File {
-    filename: String!
-    mimetype: String!
-    encoding: String!
-  }
 	
   input VendorAddInput{
 	  firstname:String!
