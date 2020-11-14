@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 
-import { ListQueryBuilder,getEntityOrThrow,AssetService } from '@vendure/core';
+import { ListQueryBuilder,getEntityOrThrow,AssetService, TransactionalConnection } from '@vendure/core';
 
 import { ListQueryOptions } from '@vendure/core/dist/common/types/common-types';
 
@@ -13,7 +13,7 @@ import { PluginInitOptions } from '../types';
 @Injectable()
 export class VendorService {
 
-    constructor(@InjectConnection() private connection: Connection,
+    constructor(private connection: TransactionalConnection,
                 @Inject(PLUGIN_INIT_OPTIONS) private options: PluginInitOptions,
 				private listQueryBuilder: ListQueryBuilder,
 				private assetService: AssetService) {}
@@ -31,15 +31,18 @@ export class VendorService {
     }
 	
 	async getVendorById(ctx,data){
-	   return getEntityOrThrow(this.connection, VendorEntity, data);
+	   return this.connection.getEntityOrThrow(ctx, VendorEntity, data);
 	}
 	
 	async addSingleVendor(ctx,data){
 	   if(data.file){
 	     const asset = await this.assetService.create(ctx, data);
-	     data.assetid = asset.id;
-	     data.assetsource = asset.source;
-	     delete data.file;
+		 if(asset.hasOwnProperty('id')){
+		   let fasset = Object(asset);
+		   data.assetid = fasset.id;
+	       data.assetsource = fasset.source;
+	       delete data.file;
+		 }
 	   }else{
 	     data.assetid="";
 		 data.assetsource="";
@@ -53,25 +56,28 @@ export class VendorService {
 	   let details:any;
 	   if(data.file){
 	     const asset = await this.assetService.create(ctx, data);
-	     data.assetid = asset.id;
-	     data.assetsource = asset.source;
-	     delete data.file;
-		 details ={
-		   firstname:data.firstname,
-	       lastname:data.lastname,
-	       email:data.email,
-	       phone:data.phone,
-	       companyname:data.companyname,
-	       companyaddr:data.companyaddr,
-	       companydesc:data.companydesc||"",
-	       companyphone:data.companyphone,
-	       companycategory:data.companycategory,
-	       panvat:data.panvat,
-	       panvatnum:data.panvatnum,
-	       producttype:data.producttype,
-		   assetid:data.assetid,
-		   assetsource:data.assetsource
-		 }
+	     if(asset.hasOwnProperty('id')){
+		   let fasset = Object(asset);
+		   data.assetid = fasset.id;
+	       data.assetsource = fasset.source;
+	       delete data.file;
+		   details ={
+		    firstname:data.firstname,
+	        lastname:data.lastname,
+	        email:data.email,
+	        phone:data.phone,
+	        companyname:data.companyname,
+	        companyaddr:data.companyaddr,
+	        companydesc:data.companydesc||"",
+	        companyphone:data.companyphone,
+	        companycategory:data.companycategory,
+	        panvat:data.panvat,
+	        panvatnum:data.panvatnum,
+	        producttype:data.producttype,
+		    assetid:data.assetid,
+		    assetsource:data.assetsource
+		   }
+		}
 	   }else{
 	      details ={
 		   firstname:data.firstname,
@@ -89,11 +95,11 @@ export class VendorService {
 		 }
 	   }
 	   const createdVariant = await this.connection.getRepository(VendorEntity).update(data.id,details);
-	   return getEntityOrThrow(this.connection, VendorEntity, data.id);
+	   return this.connection.getEntityOrThrow(ctx, VendorEntity, data.id);
 	}
 	
 	async deleteSingleVendor(ctx,ids){
-	   const Variants = await getEntityOrThrow(this.connection, VendorEntity, ids);
+	   const Variants = await this.connection.getEntityOrThrow(ctx, VendorEntity, ids);
 	   this.connection.getRepository(VendorEntity).delete(ids);
 	   return Variants;
 	}
