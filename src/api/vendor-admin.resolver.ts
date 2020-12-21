@@ -13,14 +13,14 @@ export class VendorAdminResolver {
 	
 	
     @Query()
-	@Allow(Permission.ReadSettings)
+	@Allow(Permission.SuperAdmin)
     Vendors(@Ctx() ctx: RequestContext, @Args() args: any) {
 		const {options} = args;
         return this.vendorService.getAllVendors(ctx,options || undefined);
     }
 
 	@Query()
-	@Allow(Permission.ReadSettings)
+	@Allow(Permission.SuperAdmin)
     Vendor(@Ctx() ctx: RequestContext, @Args() args: any) {
 		const {id} = args;
         return this.vendorService.getVendorById(ctx,id);
