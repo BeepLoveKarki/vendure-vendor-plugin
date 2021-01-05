@@ -13,9 +13,9 @@ import { SharedModule, addNavMenuSection } from '@vendure/admin-ui/core';
         routerLink: ['/extensions/vendors'],
         // Icon can be any of https://clarity.design/icons
         icon: 'id-badge',
-		requiresPermission: 'SuperAdmin',
       }],
-    },
+      requiresPermission: 'SuperAdmin',
+	},
     // Add this section before the "settings" section
     'settings'),
   ]
